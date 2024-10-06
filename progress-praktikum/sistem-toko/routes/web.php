@@ -1,48 +1,24 @@
+
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Rute GET sederhana
-Route::get('/hello', function () {
-    return 'Hello, World!';
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified', 'RoleCheck:admin'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Rute dengan parameter
-/*Route::get('/user/{id}', function($id){
-    return "User ID:".$id;
-});*/
+Route::get('/product')
 
-// Rute dengan parameter opsional
-Route::get('/user/{name?}', function ($name = 'Guest'){
-    return "Hello,". $name;
-});
-
-// Rute dengan nama
-Route::get('/profile', function(){
-    return 'This is the profile page.';
-})->name('profile');
-
-// Menggunakan rute bernama untuk pengalihan 
-Route::get('/redirect-to-profile', function(){
-    return redirect()->route('profile');
-});
-
-Route::prefix('admin')->group(function(){
-    Route::get('/dashboard', function(){
-        return 'Admin Dashboard'; 
-    });
-
-    Route::get('/profile', function(){
-        return 'Admin Profile';
-    });
-});
-
-Route::get('/dashboard', function (){
-    return 'Welcome to your dashboard!';
-})->middleware('auth');
-
-Route::resource('posts', 'PostController');
+require __DIR__.'/auth.php';
