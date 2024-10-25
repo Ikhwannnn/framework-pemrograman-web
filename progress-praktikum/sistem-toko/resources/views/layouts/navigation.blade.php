@@ -41,6 +41,10 @@
                            Product Master
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('supplier-create')">
+                           Supplier Master
+                        </x-dropdown-link>
+
 
                     </x-slot>
                 </x-dropdown>

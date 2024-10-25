@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,3 +28,6 @@ Route::put('/product/{id}', [ProductController::class, 'update']);
 Route::delete('/product/{id}', [ProductController::class, 'destroy']);
 
 require __DIR__.'/auth.php';
+
+Route::get('/supplier/create', [SupplierController::class, 'create'])->name("supplier-create");
+Route::post('supplier', [SupplierController::class, 'store'])->name("supplier-store");
