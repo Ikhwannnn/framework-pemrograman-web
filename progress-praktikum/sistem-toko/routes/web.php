@@ -19,15 +19,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::get('/product/create', [ProductController::class, 'create'])->name("product-create");
 Route::post('/product', [ProductController::class, 'store'])->name("product-store");
-Route::get('/product/{id}', [ProductController::class, 'show']);
-Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name("product-edit");
-Route::put('/product/{id}', [ProductController::class, 'update'])->name("product-update");
-Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+Route::get('/product/{id}', [ProductController::class, 'show'])->name("product-detail");
+Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product-edit');
+Route::put('/product/{id}', [ProductController::class, 'update'])->name('product-update');
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product-delete');
+Route::get('/product/export/excel', [ProductController::class, 'exportExcel'])->name('product-export-excel');
 
-require __DIR__.'/auth.php';
-
+Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
 Route::get('/supplier/create', [SupplierController::class, 'create'])->name("supplier-create");
-Route::post('supplier', [SupplierController::class, 'store'])->name("supplier-store");
+Route::post('/supplier', [SupplierController::class, 'store'])->name("supplier-store");
+Route::get('/supplier/{id}', [SupplierController::class, 'show'])->name("supplier-detail");
+Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier-edit');
+;
+Route::put('/supplier/{id}', [SupplierController::class, 'update'])->name('supplier-update');
+Route::delete('/supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier-delete');
+
+require __DIR__ . '/auth.php';
